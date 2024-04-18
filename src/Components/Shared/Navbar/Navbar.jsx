@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import logo from "../../../assets/logos/Logo.png"
 
 const Navbar = () => {
     const navlinks = <>
@@ -20,7 +21,14 @@ const Navbar = () => {
                             {navlinks}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block text-transparent bg-clip-text">TrackWise</a>
+                    <div className='flex items-center h-full'>
+                        <div>
+                            <img src={logo} className='w-16 h-16' alt="" />
+                        </div>
+                        <div>
+                            <a className=" text-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block text-transparent bg-clip-text">TrackWise</a>
+                        </div>
+                    </div>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
@@ -44,5 +52,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar; 
-   
+export default Navbar;
