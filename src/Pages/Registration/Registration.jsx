@@ -16,11 +16,11 @@ const Registration = () => {
     const handleSignUp = (e) => {
         e.preventDefault()
         const form = e.target
-        const name = form.name.value
+        // const name = form.name.value
         const email = form.email.value
-        const gender = selected
+        // const gender = selected
         const password = form.password.value
-        const userInfo = { name, email, gender, password }
+        // const userInfo = { name, email, gender, password }
         createUser(email, password)
             .then(result => {
                 console.log(result.user)
