@@ -2,25 +2,27 @@ import { FaArrowLeft } from "react-icons/fa";
 import loginbg from "../../assets/4957136.jpg"
 import useAuth from "../../hooks/useAuth"
 import "./login.css"
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 const Login = () => {
-    const {logInUser} = useAuth()
+    const { logInUser } = useAuth()
     const navigate = useNavigate()
+    const location = useLocation()
+    console.log(location)
     const handleLogIn = (e) => {
         e.preventDefault()
         const form = e.target
         const email = form.email.value
         const password = form.password.value
         logInUser(email, password)
-        .then(result=>{
-            console.log(result.user)
-            navigate('/')
-        }).catch(err=>{
-            // console.log(err.message)
-            if(err.code == 'auth/invalid-credential'){
-                console.log('auth/invalid-credential')
-            }
-        })
+            .then(result => {
+                console.log(result.user)
+                navigate('/')
+            }).catch(err => {
+                // console.log(err.message)
+                if (err.code == 'auth/invalid-credential') {
+                    console.log('auth/invalid-credential')
+                }
+            })
     }
 
     return (
@@ -45,10 +47,15 @@ const Login = () => {
                             <label>Password</label>
                             <div>
                                 <input type="password" required name="password" placeholder="type password"></input>
+                                <div className="">
+                                   <a href="" className="text-xs opacity-85 mt-2 pl-1">Forget Password?</a>
+                                </div>
                             </div>
                         </div>
+
                         <div>
                             <button className="uppercase btn w-[70%] rounded-lg">login</button>
+                            <p className="text-sm mt-2">Are you new here? Please <a href="/signup"  className="text-blue-500">Signup</a></p>
                         </div>
 
                     </form>
@@ -56,7 +63,7 @@ const Login = () => {
             </div>
             <div className="lg:hidden block absolute top-12 left-10">
                 <FaArrowLeft size={15} />
-            </div> 
+            </div>
 
         </div>
     );

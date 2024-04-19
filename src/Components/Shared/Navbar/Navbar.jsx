@@ -1,13 +1,24 @@
 import { NavLink } from 'react-router-dom';
 import logo from "../../../assets/logos/Logo.png"
+import useAuth from '../../../hooks/useAuth';
 
 const Navbar = () => {
+    const {user,userLogOut} = useAuth()
+    const handleLogOut=()=>{
+        userLogOut()
+        .then(result=>{
+            console.log(result)
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
     const navlinks = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/track">Track</NavLink></li>
         <li><NavLink to="/register">Registration</NavLink></li>
-        <li><NavLink to="/contac">Contact us</NavLink></li>
-        <li><NavLink to="/login">Login</NavLink></li>
+        <li><NavLink to="/schedule">Schedule</NavLink></li>
+        <li><NavLink to="/contact">Contact us</NavLink></li>
+        <li>{user?<NavLink to="/logout" onClick={handleLogOut}>Logout</NavLink>:<NavLink to="/login">Login</NavLink>}</li>
     </>
     return (
         <div>

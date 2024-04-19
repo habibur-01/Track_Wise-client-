@@ -1,84 +1,79 @@
-import { Listbox, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
-import { FaAngleDown, FaCheck } from 'react-icons/fa';
-import logo from "../../assets/logos/TrackWise.png"
-import "./styles.css"
-import axios from 'axios';
-
+import { Fragment, useState } from "react";
+import signuppic from "../../assets/6368592.jpg"
+import { Listbox, Transition } from "@headlessui/react";
+import { FaAngleDown, FaArrowLeft, FaCheck } from "react-icons/fa";
+import "./style.css"
+import useAuth from "../../hooks/useAuth";
+import axios from "axios";
+import { updateProfile } from "firebase/auth";
 const people = [
-    { name: 'CSE' },
-    { name: 'EEE' },
-    { name: 'SWE' },
-    { name: 'ESDM' },
-    { name: 'MCT' },
-    { name: 'Pharmacy' },
-    { name: 'LLB' },
-    { name: 'BBA' },
+    { name: 'Male' },
+    { name: 'Female' },
+    { name: 'others' },
 ]
-
 const Registration = () => {
     const [selected, setSelected] = useState(people[0])
-    const handleTransportReg = (e) => {
+    const { createUser } = useAuth()
+
+    const handleSignUp = (e) => {
         e.preventDefault()
         const form = e.target
         const name = form.name.value
         const email = form.email.value
-        const studentId = form.id.value
-        const department = selected
-        const program = form.program.value
-        const phone = form.phone.value
-        const route = form.route.value
-        const transportFee = form.charge.value
-        const userRegInfo = {name, email, studentId,department, program, phone, route, transportFee}
-        console.log(userRegInfo)
-        axios.post("http://localhost:3000/registerUser", userRegInfo)
-        .then(response=>{
-            console.log(response)
-        }).catch(err=>{
-            console.log(err)
-        })
+        const gender = selected
+        const password = form.password.value
+        const userInfo = { name, email, gender, password }
+        createUser(email, password)
+            .then(result => {
+                console.log(result.user)
+                updateProfile(result.user, {
+                    displayName: name,
+                    // photoURL: data?.data?.display_url
+                })
+            }).catch(error => {
+                console.log(error)
+            })
+
+            axios.post('http://localhost:3000/user', userInfo)
+            .then(response=>{
+                console.log(response)
+            }).catch(err=>{
+                console.log(err)
+            })
+
 
     }
     return (
-        <div className='bgPic w-full flex justify-center items-center h-screen my-10'>
-            <div className='w-1/2 border bg-white/30 backdrop-blur-md relative rounded-tl-3xl'>
-                <div className='p-10 text-white'>
-                    <h1 className='text-3xl font-semibold'>Transport Application Form</h1>
-                    <p>Take transport service through the application.</p>
-                </div>
-                <div className='absolute right-0 top-0'>
-                    <img src={logo} alt="" className='h-28' />
-                </div>
-                <form className="space-y-4 my-8 px-10 formhandle" onSubmit={handleTransportReg}>
-                    <div className='flex gap-6'>
-                        <div className="space-y-3 w-[50%]">
+        <div className="flex justify-center relative w-full h-[800px] items-center">
+            <div className="w-[50%]">
+                <img src={signuppic} className="w-[80%] h-[80%]" alt="" />
+            </div>
+            <div className="w-[50%] p-8">
+                <div>
+                    <div className="space-y-2">
+                        <h1 className="text-2xl font-bold uppercase">Sign Up</h1>
+                        <p>Please create your account to explore us.</p>
+                    </div>
+                    <form className="space-y-4 my-8" onSubmit={handleSignUp}>
+                        <div className="space-y-3">
                             <label>Name</label>
                             <div>
                                 <input type="text" name="name" placeholder="type email"></input>
                             </div>
                         </div>
-                        <div className="space-y-3 w-[50%]">
+                        <div className="space-y-3">
                             <label>Email</label>
                             <div>
                                 <input type="email" name="email" placeholder="type email"></input>
                             </div>
                         </div>
-                    </div>
-
-                    <div className='flex gap-6'>
-                        <div className="space-y-3 w-[50%]">
-                            <label>Student ID</label>
-                            <div className=''>
-                                <input type="text" name="id" placeholder="type email"></input>
-                            </div>
-                        </div>
-                        <div className="space-y-3 w-[50%]">
-                            <label>Department</label>
+                        <div className="space-y-3">
+                            <label>Password</label>
                             <div>
                                 <div className="">
                                     <Listbox value={selected} onChange={setSelected}>
                                         <div className="relative mt-1">
-                                            <Listbox.Button className="relative headlessInputfield w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                                            <Listbox.Button className="headlessInputfield relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                                                 <span className="block truncate">{selected.name}</span>
                                                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                                     <FaAngleDown
@@ -127,45 +122,26 @@ const Registration = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-
-                    <div className="space-y-3">
-                        <label>Program</label>
-                        <div>
-                            <input type="text" name="program" placeholder="type program"></input>
-                        </div>
-                    </div>
-                    <div className='flex gap-6'>
-                        <div className="space-y-3 w-[50%]">
-                            <label>Phone Number</label>
+                        <div className="space-y-3">
+                            <label>Password</label>
                             <div>
-                                <input type="number" name="phone" placeholder="type phone number"></input>
+                                <input type="password" name="password" placeholder="type password"></input>
                             </div>
                         </div>
-                        <div className="space-y-3 w-[50%]">
-                            <label>Total Charge</label>
-                            <div>
-                                <input type="number" name="charge" placeholder="type phone number"></input>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div className="space-y-3 w-[50%]">
-                        <label>Route Name</label>
                         <div>
-                            <input type="text" name="route" placeholder="type route name"></input>
+                            <button className="uppercase btn w-[70%] rounded-lg">Continue</button>
+                            <p className="text-sm mt-2">Already have an account? Please <a href="/login" className="text-blue-500">Login</a></p>
                         </div>
-                    </div>
-                    <div className='flex justify-center'>
-                        <button className="uppercase btn w-full mt-5 btn-primary rounded-lg">Continue</button>
-                    </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
+            <div className="lg:hidden block absolute top-12 left-10">
+                <FaArrowLeft size={15} />
+            </div>
+
         </div>
     );
 };
 
-export default Registration; 
+export default Registration;
