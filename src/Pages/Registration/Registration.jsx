@@ -1,17 +1,37 @@
 import { Fragment, useState } from "react";
 import signuppic from "../../assets/6368592.jpg"
 import { Listbox, Transition } from "@headlessui/react";
-import { FaAngleDown, FaCheck } from "react-icons/fa";
+import { FaAngleDown, FaArrowLeft, FaCheck } from "react-icons/fa";
 import "./style.css"
+import useAuth from "../../hooks/useAuth";
 const people = [
     { name: 'Male' },
     { name: 'Female' },
     { name: 'others' },
-  ]
+]
 const Registration = () => {
     const [selected, setSelected] = useState(people[0])
+    const { createUser } = useAuth()
+
+    const handleSignUp = (e) => {
+        e.preventDefault()
+        const form = e.target
+        const name = form.name.value
+        const email = form.email.value
+        const gender = selected
+        const password = form.password.value
+        const userInfo = { name, email, gender, password }
+        createUser(email, password)
+            .then(result => {
+                console.log(result.user)
+            }).catch(error => {
+                console.log(error)
+            })
+
+
+    }
     return (
-        <div className="flex justify-center w-full h-[800px] items-center">
+        <div className="flex justify-center relative w-full h-[800px] items-center">
             <div className="w-[50%]">
                 <img src={signuppic} className="w-[80%] h-[80%]" alt="" />
             </div>
@@ -21,17 +41,17 @@ const Registration = () => {
                         <h1 className="text-2xl font-bold uppercase">Sign Up</h1>
                         <p>Please create your account to explore us.</p>
                     </div>
-                    <form className="space-y-4 my-8">
+                    <form className="space-y-4 my-8" onSubmit={handleSignUp}>
                         <div className="space-y-3">
                             <label>Name</label>
                             <div>
-                                <input name="name" placeholder="type email"></input>
+                                <input type="text" name="name" placeholder="type email"></input>
                             </div>
                         </div>
                         <div className="space-y-3">
                             <label>Email</label>
                             <div>
-                                <input name="email" placeholder="type email"></input>
+                                <input type="email" name="email" placeholder="type email"></input>
                             </div>
                         </div>
                         <div className="space-y-3">
@@ -75,7 +95,7 @@ const Registration = () => {
                                                                     </span>
                                                                     {selected ? (
                                                                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                                                                            <FaCheck  className="h-5 w-5" aria-hidden="true" />
+                                                                            <FaCheck className="h-5 w-5" aria-hidden="true" />
                                                                         </span>
                                                                     ) : null}
                                                                 </>
@@ -92,7 +112,7 @@ const Registration = () => {
                         <div className="space-y-3">
                             <label>Password</label>
                             <div>
-                                <input name="password" placeholder="type password"></input>
+                                <input type="password" name="password" placeholder="type password"></input>
                             </div>
                         </div>
                         <div>
@@ -101,6 +121,9 @@ const Registration = () => {
 
                     </form>
                 </div>
+            </div>
+            <div className="lg:hidden block absolute top-12 left-10">
+                <FaArrowLeft size={15} />
             </div>
 
         </div>

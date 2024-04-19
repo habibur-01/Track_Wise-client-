@@ -1,8 +1,9 @@
+import { FaArrowLeft } from "react-icons/fa";
 import loginbg from "../../assets/4957136.jpg"
 import "./login.css"
 const Login = () => {
     return (
-        <div className="flex justify-center w-full h-[800px] items-center">
+        <div className="flex justify-center w-full h-[800px] items-center relative">
             <div className="w-[50%]">
                 <img src={loginbg} className="w-[80%] h-[80%]" alt="" />
             </div>
@@ -28,9 +29,12 @@ const Login = () => {
                         <div>
                             <button className="uppercase btn w-[70%] rounded-lg">login</button>
                         </div>
-                        
+
                     </form>
                 </div>
+            </div>
+            <div className="lg:hidden block absolute top-12 left-10">
+                <FaArrowLeft size={15} />
             </div>
 
         </div>
