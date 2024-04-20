@@ -5,7 +5,7 @@ import schedule from "../../../assets/640.png"
 
 const Feature = () => {
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center z-50">
             <div className="grid gap-10 md:grid-cols-3 lg:grid-cols-3">
                 <div className="card  lg:w-72 glass">
                     <figure><img src={register} className="h-28 mt-5" alt="car!" /></figure>

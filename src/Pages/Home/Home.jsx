@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div>
       <Banner />
-      <div className="-mt-16">
+      <div className="-mt-20 z-50">
         <Feature />
       </div>
       <div>
