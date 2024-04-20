@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react';
 import { FaAngleDown, FaCheck } from 'react-icons/fa';
 import logo from "../../assets/logos/TrackWise.png"
 import "./styles.css"
-import axios from 'axios';
+import useAxiosSecure from '../../api/AxiosSecure/useAxiosSecure';
 
 const people = [
     { name: 'CSE' },
@@ -29,20 +29,22 @@ const people1 = [
 const Registration = () => {
     const [selected, setSelected] = useState(people[0])
     const [selectedRoute, setSelectedRoute] = useState(people1[0])
+    const axiosSecure = useAxiosSecure()
     const handleTransportReg = (e) => {
         e.preventDefault()
         const form = e.target
         const name = form.name.value
         const email = form.email.value
-        const studentId = form.id.value
+        const studentId = form.studentid.value
         const department = selected
         const program = form.program.value
         const phone = form.phone.value
-        const route = form.route.value
+        const route = selectedRoute
         const transportFee = form.charge.value
         const userRegInfo = { name, email, studentId, department, program, phone, route, transportFee }
         console.log(userRegInfo)
-        axios.post("http://localhost:3000/registerUser", userRegInfo)
+        
+        axiosSecure.post("/registerUser", userRegInfo)
             .then(response => {
                 console.log(response)
             }).catch(err => {
@@ -90,7 +92,7 @@ const Registration = () => {
                                 <div className="space-y-3 w-[50%]">
                                     <label>Student ID</label>
                                     <div className=''>
-                                        <input type="text" name="id" placeholder="type email"></input>
+                                        <input type="text" name="studentid" placeholder="type student ID"></input>
                                     </div>
                                 </div>
                                 <div className="space-y-3 w-[50%]">
