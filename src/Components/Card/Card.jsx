@@ -14,7 +14,7 @@ const Card = ({ title, amount }) => {
     );
 };
 Card.propTypes = {
-    title: PropTypes.sreing,
+    title: PropTypes.any,
     amount: PropTypes.number,
     // color: PropTypes.any,
 
