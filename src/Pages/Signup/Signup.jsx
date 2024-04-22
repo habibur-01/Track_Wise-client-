@@ -7,9 +7,8 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import { updateProfile } from "firebase/auth";
 const people = [
-    { name: 'Male' },
-    { name: 'Female' },
-    { name: 'others' },
+    { name: 'Student' },
+    { name: 'Staff' },
 ]
 const Registration = () => {
     const [selected, setSelected] = useState(people[0])
@@ -68,7 +67,7 @@ const Registration = () => {
                             </div>
                         </div>
                         <div className="space-y-3">
-                            <label>Password</label>
+                            <label>Role</label>
                             <div>
                                 <div className="">
                                     <Listbox value={selected} onChange={setSelected}>
@@ -88,7 +87,7 @@ const Registration = () => {
                                                 leaveFrom="opacity-100"
                                                 leaveTo="opacity-0"
                                             >
-                                                <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                                                <Listbox.Options className="absolute mt-1 max-h-60  w-[70%] overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
                                                     {people.map((person, personIdx) => (
                                                         <Listbox.Option
                                                             key={personIdx}

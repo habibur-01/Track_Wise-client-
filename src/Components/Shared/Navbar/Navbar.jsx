@@ -18,7 +18,7 @@ const Navbar = () => {
         <li><NavLink to="/register">Registration</NavLink></li>
         <li><NavLink to="/schedule">Schedule</NavLink></li>
         <li><NavLink to="/contact">Contact us</NavLink></li>
-        <li>{user ? <NavLink to="/logout" onClick={handleLogOut}>Logout</NavLink> : <NavLink to="/login">Login</NavLink>}</li>
+        {user ? <li className='flex justify-center items-center hover:cursor-pointer' onClick={handleLogOut}> Logout</li> :<li><NavLink to="/login">Login</NavLink></li> }
     </>
     return (
         <div>

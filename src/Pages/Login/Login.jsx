@@ -3,10 +3,13 @@ import loginbg from "../../assets/4957136.jpg"
 import useAuth from "../../hooks/useAuth"
 import "./login.css"
 import { useLocation, useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import useAxiosSecure from "../../api/AxiosSecure/useAxiosSecure";
 const Login = () => {
-    const { logInUser } = useAuth()
+    const { logInUser, createUserWithGoogle } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
+    const axiosSecure = useAxiosSecure()
     console.log(location)
     const handleLogIn = (e) => {
         e.preventDefault()
@@ -23,6 +26,24 @@ const Login = () => {
                     console.log('auth/invalid-credential')
                 }
             })
+    }
+
+    const handleGoogleLogin = () => {
+        createUserWithGoogle()
+            .then(result => {
+                console.log(result.user)
+                const userInfo = {name:result?.user.displayName, email:result.user.email, image:result.user.photoURL}
+                axiosSecure.post('/users', userInfo)
+                    .then(response => {
+                        console.log(response)
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                    navigate('/')
+
+            })
+            
+
     }
 
     return (
@@ -48,17 +69,26 @@ const Login = () => {
                             <div>
                                 <input type="password" required name="password" placeholder="type password"></input>
                                 <div className="">
-                                   <a href="" className="text-xs opacity-85 mt-2 pl-1">Forget Password?</a>
+                                    <a href="" className="text-xs opacity-85 mt-2 pl-1">Forget Password?</a>
                                 </div>
                             </div>
                         </div>
 
                         <div>
                             <button className="uppercase btn w-[70%] rounded-lg">login</button>
-                            <p className="text-sm mt-2">Are you new here? Please <a href="/signup"  className="text-blue-500">Signup</a></p>
+
                         </div>
 
                     </form>
+                    <div className="flex w-[70%] justify-center items-center mb-6">
+                        <p className="w-[33%]"><hr /> </p>
+                        <p className="px-2 text-lg font-semibold">or</p>
+                        <p className="w-[33%]"><hr /></p>
+                    </div>
+                    <div>
+                        <button className="uppercase btn w-[70%] bg-[#5f89b6] text-white rounded-lg" onClick={handleGoogleLogin}><FcGoogle size={20} />Login with google</button>
+                        <p className="text-sm mt-2">Are you new here? Please <a href="/signup" className="text-blue-500">Signup</a></p>
+                    </div>
                 </div>
             </div>
             <div className="lg:hidden block absolute top-12 left-10">
