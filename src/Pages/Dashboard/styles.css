@@ -1,0 +1,17 @@
+table {
+    
+    color: #e3eded;
+    
+    border-spacing: 40px;
+    width: 100%;
+}
+th{
+    border-top: 1px solid #e3eded;
+    border-bottom: 1px solid #e3eded;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+
+  } 

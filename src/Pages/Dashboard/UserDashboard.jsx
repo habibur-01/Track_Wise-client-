@@ -1,5 +1,6 @@
 import Card from "../../Components/Card/Card";
 import DashboardTitle from "../../Components/DashboardTitle/DashboardTitle";
+import "./styles.css"
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell, ResponsiveContainer, Line, LineChart, } from 'recharts';
 const colors = ['#0088FE', '#00C49F', '#a259ff', '#47ff8b', '#43f9d8'];
 const data = [
@@ -99,10 +100,10 @@ const UserDashboard = () => {
                             >
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="name"
-                                     />
+                                />
                                 <YAxis
-                                    domain={[0, 3000]} 
-                                    label={{ value: 'Amount(taka)', angle: -90, position: 'insideLeft' }}/>
+                                    domain={[0, 3000]}
+                                    label={{ value: 'Amount(taka)', angle: -90, position: 'insideLeft' }} />
                                 <Tooltip />
                                 <Legend />
                                 <Line type="monotone" dataKey="amount" stroke="#82ca9d" activeDot={{ r: 8 }} />
@@ -112,6 +113,59 @@ const UserDashboard = () => {
                     </div>
                     {/* </ResponsiveContainer> */}
                 </div>
+            </div>
+            <div className="m-10 bg-base-200 p-10 rounded-md min-h-fit flex gap-10">
+
+                {/* <h1 className="text-xl text-[#e3eded] pb-6 text-center">Semister wise</h1> */}
+                <div className="w-[50%] bg-[#355b64] p-10 rounded-md">
+                    <table >
+                        <caption className="text-xl text-[#e3eded] pb-6 font-semibold">Semester List</caption>
+                        <thead>
+                            <tr>
+                                <th >Semester Name</th>
+                                <th>Issue Date</th>
+                                <th>Expire Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Spring-2024</td>
+                                <td>24/01/2024</td>
+                                <td>31/06/2024</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="w-[50%]">
+                    <h1 className="text-xl text-[#141515] pb-6 text-center">Semester wise Payment</h1>
+                    <ResponsiveContainer width="100%" height={400}>
+                        <LineChart
+                            width={500}
+                            height={300}
+                            data={data}
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="name"
+                            />
+                            <YAxis
+                                domain={[0, 3000]}
+                                label={{ value: 'Amount(taka)', angle: -90, position: 'insideLeft' }} />
+                            <Tooltip />
+                            <Legend />
+                            <Line type="monotone" dataKey="amount" stroke="#82ca9d" activeDot={{ r: 8 }} />
+
+                        </LineChart>
+                    </ResponsiveContainer>
+
+                </div>
+
+
             </div>
 
         </div >

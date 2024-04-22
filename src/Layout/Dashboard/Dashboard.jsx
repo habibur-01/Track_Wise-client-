@@ -27,7 +27,7 @@ const Dashboard = () => {
         </NavLink>
       </li>
       <li className="sidebar">
-        <NavLink to={"profile"}>
+        <NavLink to={"/dashboard/profile"}>
           <span className="flex items-center gap-2">
             <FaUser size={17} />
             Profile
