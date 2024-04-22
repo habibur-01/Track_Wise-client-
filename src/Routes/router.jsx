@@ -7,6 +7,7 @@ import Registration from "../Pages/Registration/Registration";
 import Dashboard from "../Layout/Dashboard/Dashboard";
 import UserDashboard from "../Pages/Dashboard/UserDashboard";
 import Profile from "../Pages/Dashboard/Profile/Profile";
+import UpdateProfile from "../Pages/Dashboard/UpdateProfile/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile></Profile>
+      },
+      {
+        path: "updateProfile",
+        element: <UpdateProfile></UpdateProfile>
       },
     ]
   }

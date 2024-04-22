@@ -12,13 +12,14 @@ const Navbar = () => {
                 console.log(err)
             })
     }
+    console.log(user)
     const navlinks = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/track">Track</NavLink></li>
         <li><NavLink to="/register">Registration</NavLink></li>
         <li><NavLink to="/schedule">Schedule</NavLink></li>
         <li><NavLink to="/contact">Contact us</NavLink></li>
-        {user ? <li className='flex justify-center items-center hover:cursor-pointer' onClick={handleLogOut}> Logout</li> :<li><NavLink to="/login">Login</NavLink></li> }
+        {user ? <li className='flex justify-center items-center hover:cursor-pointer' onClick={handleLogOut}> Logout</li> : <li><NavLink to="/login">Login</NavLink></li>}
     </>
     return (
         <div>
@@ -50,7 +51,10 @@ const Navbar = () => {
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                {
+                                    user ? <>{user?.photoURL? <img alt="Tailwind CSS Navbar component" src={user?.photoURL} className='w-full rounded-full' />:<img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />}</> :
+                                        <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                }
                             </div>
                         </div>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-5 z-[10] p-2 shadow bg-base-100 rounded-box w-52">

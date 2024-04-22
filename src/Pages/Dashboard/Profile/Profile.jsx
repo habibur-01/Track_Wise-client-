@@ -1,9 +1,28 @@
+import { Link } from "react-router-dom";
 import DashboardTitle from "../../../Components/DashboardTitle/DashboardTitle";
-import imge from "../../../assets/logos/981.jpg"
 import useAuth from "../../../hooks/useAuth"
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../api/AxiosSecure/useAxiosSecure";
 
 const Profile = () => {
     const { user } = useAuth()
+    const axiosSecure = useAxiosSecure()
+    const { data: userInfo, isPending } = useQuery({
+        queryKey: ['userData'],
+        queryFn: async () => {
+
+            const res = await axiosSecure.get(`/users?email=${user?.email}`);
+            return res.data;
+
+        },
+    });
+    if (isPending) {
+        return (<div className="w-full h-screen flex justify-center items-center">
+            <span className="loading loading-ring loading-lg"></span>
+        </div>
+        )
+    } 
+    console.log(userInfo)
     return (
         <div>
             <DashboardTitle title={'Profile Information'}></DashboardTitle>
@@ -11,11 +30,11 @@ const Profile = () => {
                 <div className="w-96 min-h-fit">
                     {
                         user ?
-                            <>{user.photoURl ? <img src={user.photoURl} className="w-full h-[500px] overflow-x-hidden"></img> : <img src={imge} className="w-full h-[500px] overflow-x-hidden"></img>}</> :
-                            <img src={imge} className="w-full h-[400px] overflow-x-hidden"></img>
+                            <>{user.photoURl ? <img src={user.photoURl} className="w-full h-[400px] overflow-x-hidden"></img> : <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="w-full h-[400px] overflow-x-hidden"></img>}</> :
+                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="w-full h-[400px] overflow-x-hidden"></img>
                     }
                     <div className="my-4">
-                        <button className="btn w-full bg-[#80efdb]">Edit Profile</button>
+                        <Link to={"/dashboard/updateProfile"}><button className="btn w-full bg-[#284958] text-white">Edit Profile</button></Link>
                     </div>
 
                 </div>
@@ -27,7 +46,7 @@ const Profile = () => {
                                 <p>Name</p>
                             </div>
                             <div>
-                                <p>Habibure Rahman Zihad</p>
+                                <p></p>
                             </div>
                         </div>
 
@@ -36,15 +55,15 @@ const Profile = () => {
                                 <p>Email</p>
                             </div>
                             <div>
-                                <p>Habibure Rahman Zihad</p>
+                                <p></p>
                             </div>
                         </div>
                         <div className="flex justify-between">
                             <div>
-                                <p>student Id</p>
+                                <p>Student ID</p>
                             </div>
                             <div>
-                                <p>Habibure Rahman Zihad</p>
+                                <p>201-15-3647</p>
                             </div>
                         </div>
                         <div className="flex justify-between">
@@ -97,7 +116,7 @@ const Profile = () => {
                         </div>
                         <div className="flex justify-between ">
                             <div>
-                                <p>National Id</p>
+                                <p>National ID</p>
                             </div>
                             <div>
                                 <p>Habibure Rahman Zihad</p>

@@ -9,7 +9,7 @@ import { FaCreditCard, FaHome, FaUser, FaUserEdit } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import "./style.css";
 const Dashboard = () => {
-  const { userLogOut } = useAuth();
+  const { user, userLogOut } = useAuth();
   const navigate = useNavigate();
   const handleLogout = () => {
     userLogOut();
@@ -35,7 +35,7 @@ const Dashboard = () => {
         </NavLink>
       </li>
       <li className="sidebar">
-        <NavLink to={"updateProfile"}>
+        <NavLink to={"/dashboard/updateProfile"}>
           <span className="flex items-center gap-2">
             <FaUserEdit size={21} />
             Profile Update
@@ -43,7 +43,7 @@ const Dashboard = () => {
         </NavLink>
       </li>
       <li className="sidebar">
-        <NavLink to={"paymentHistory"}>
+        <NavLink to={"/dashboard/paymentHistory"}>
           <span className="flex items-center gap-2">
             <FaCreditCard size={18} />
             Payment History
@@ -51,7 +51,7 @@ const Dashboard = () => {
         </NavLink>
       </li>
       <li className="sidebar">
-        <NavLink to={"transportClearance"}>
+        <NavLink to={"/dashboard/transportClearance"}>
           <span className="flex items-center gap-2">
             <MdFactCheck size={20} />
             Transport Clearance
@@ -105,8 +105,10 @@ const Dashboard = () => {
       <div className="flex text-[#e4eeee] text-base">
         <div className="w-64 bg-[#304f5e] min-h-screen">
           <div className="flex flex-col items-center space-y-3 text-[#e4eeee] pt-10 pb-5 border-y-2">
-            <img src="" className="h-16 border rounded-full w-16" alt="" />
-            <h2 className="text-lg">example12@gmail.com</h2>
+            {/* <img src="" className="h-16 border rounded-full w-16" alt="" /> */}
+            {user ? <>{user?.photoURL ? <img alt="Tailwind CSS Navbar component" src={user?.photoURL} className="h-16 border rounded-full w-16" /> : <img alt="Tailwind CSS Navbar component" className="h-16 border rounded-full w-16" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />}</> :
+              <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="h-16 border rounded-full w-16" />}
+            <h2 className="text-lg">{user? <>{user.email}</>:<>example12@gmail.com</>}</h2>
           </div>
           <div className="py-8 border-b-2  px-10">
             <ul className="list-none space-y-4">{navLinks}</ul>

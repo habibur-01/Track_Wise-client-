@@ -4,8 +4,9 @@ import { Listbox, Transition } from "@headlessui/react";
 import { FaAngleDown, FaArrowLeft, FaCheck } from "react-icons/fa";
 import "./style.css"
 import useAuth from "../../hooks/useAuth";
-import axios from "axios";
 import { updateProfile } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../api/AxiosSecure/useAxiosSecure";
 const people = [
     { name: 'Student' },
     { name: 'Staff' },
@@ -13,15 +14,17 @@ const people = [
 const Registration = () => {
     const [selected, setSelected] = useState(people[0])
     const { createUser } = useAuth()
+    const navigate = useNavigate()
+    const axiosSecure = useAxiosSecure()
 
     const handleSignUp = (e) => {
         e.preventDefault()
         const form = e.target
         const name = form.name.value
         const email = form.email.value
-        const gender = selected
+        const role = selected.name
         const password = form.password.value
-        const userInfo = { name, email, gender, password }
+        const userInfo = { name, email, role, password }
         createUser(email, password)
             .then(result => {
                 console.log(result.user)
@@ -29,16 +32,18 @@ const Registration = () => {
                     displayName: name,
                     // photoURL: data?.data?.display_url
                 })
+                axiosSecure.post('/users', userInfo)
+                    .then(response => {
+                        console.log(response)
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                    navigate('/login')
             }).catch(error => {
                 console.log(error)
             })
 
-            axios.post('http://localhost:3000/user', userInfo)
-            .then(response=>{
-                console.log(response)
-            }).catch(err=>{
-                console.log(err)
-            })
+
 
 
     }
@@ -57,7 +62,7 @@ const Registration = () => {
                         <div className="space-y-3">
                             <label>Name</label>
                             <div>
-                                <input type="text" name="name" placeholder="type email"></input>
+                                <input type="text" name="name" placeholder="type name"></input>
                             </div>
                         </div>
                         <div className="space-y-3">

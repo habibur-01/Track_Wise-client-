@@ -81,9 +81,9 @@ const Login = () => {
 
                     </form>
                     <div className="flex w-[70%] justify-center items-center mb-6">
-                        <p className="w-[33%]"><hr /> </p>
+                        <div className="w-[33%]"><hr /> </div>
                         <p className="px-2 text-lg font-semibold">or</p>
-                        <p className="w-[33%]"><hr /></p>
+                        <div className="w-[33%]"><hr /></div>
                     </div>
                     <div>
                         <button className="uppercase btn w-[70%] bg-[#5f89b6] text-white rounded-lg" onClick={handleGoogleLogin}><FcGoogle size={20} />Login with google</button>

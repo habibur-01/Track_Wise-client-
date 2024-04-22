@@ -36,10 +36,10 @@ const Registration = () => {
         const name = form.name.value
         const email = form.email.value
         const studentId = form.studentid.value
-        const department = selected
+        const department = selected.name
         const program = form.program.value
         const phone = form.phone.value
-        const route = selectedRoute
+        const route = selectedRoute.name
         const transportFee = form.charge.value
         const userRegInfo = { name, email, studentId, department, program, phone, route, transportFee }
         console.log(userRegInfo)
@@ -77,7 +77,7 @@ const Registration = () => {
                                 <div className="space-y-3 w-[50%]">
                                     <label>Name</label>
                                     <div>
-                                        <input type="text" name="name" placeholder="type email"></input>
+                                        <input type="text" name="name" placeholder="type name"></input>
                                     </div>
                                 </div>
                                 <div className="space-y-3 w-[50%]">
@@ -169,7 +169,7 @@ const Registration = () => {
                                 <div className="space-y-3 w-[50%]">
                                     <label>Total Charge</label>
                                     <div>
-                                        <input type="number" name="charge" placeholder="type phone number"></input>
+                                        <input type="number" name="charge" placeholder="type charge"></input>
                                     </div>
                                 </div>
 
