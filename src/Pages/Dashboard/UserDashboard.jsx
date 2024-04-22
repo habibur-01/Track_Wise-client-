@@ -1,7 +1,9 @@
 import Card from "../../Components/Card/Card";
 import DashboardTitle from "../../Components/DashboardTitle/DashboardTitle";
+import BarCharts from "../../Components/UserStatistic/BarCharts";
+import DrawLinChart from "../../Components/UserStatistic/DrawLinChart";
 import "./styles.css"
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell, ResponsiveContainer, Line, LineChart, } from 'recharts';
+import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Line, LineChart, } from 'recharts';
 const colors = ['#0088FE', '#00C49F', '#a259ff', '#47ff8b', '#43f9d8'];
 const data = [
     {
@@ -59,64 +61,21 @@ const UserDashboard = () => {
                     <h1 className="text-black text-center text-xl py-10">Payment Scheme</h1>
 
                     <div className="flex gap-10 pb-10 px-2">
-                        <ResponsiveContainer width="100%" height={400}>
-                            <BarChart
-                                width={800}
-                                height={400}
-                                data={data}
-                                margin={{
-                                    top: 5,
-                                    right: 30,
-                                    left: 20,
-                                    bottom: 5,
-                                }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name"
-                                    label={{ value: 'Fee Name', position: 'bottom' }} />
-                                <YAxis domain={[0, 3000]}
-                                    label={{ value: 'Amount(taka)', angle: -90, position: 'insideLeft' }} />
-                                <Tooltip />
-                                <Legend />
-                                <Bar dataKey="amount" fill="#82ca9d" shape={<Rectangle />} label={{ position: 'top' }}>
-                                    {data.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={colors[index % 5]} />
-                                    ))}
-                                </Bar>
-                                {/* <Bar dataKey="amt" fill="#82ca9d" activeBar={colors.map((color,index)=><Rectangle key={index} fill={color} stroke="purple" />)} /> */}
-                            </BarChart>
-                        </ResponsiveContainer>
-                        <ResponsiveContainer width="100%" height={400}>
-                            <LineChart
-                                width={500}
-                                height={300}
-                                data={data}
-                                margin={{
-                                    top: 5,
-                                    right: 30,
-                                    left: 20,
-                                    bottom: 5,
-                                }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name"
-                                />
-                                <YAxis
-                                    domain={[0, 3000]}
-                                    label={{ value: 'Amount(taka)', angle: -90, position: 'insideLeft' }} />
-                                <Tooltip />
-                                <Legend />
-                                <Line type="monotone" dataKey="amount" stroke="#82ca9d" activeDot={{ r: 8 }} />
 
-                            </LineChart>
+                        <ResponsiveContainer width="100%" height={400}>
+                            <BarCharts data={data} colors={colors}></BarCharts>
                         </ResponsiveContainer>
+
+                        <ResponsiveContainer width="100%" height={400}>
+                            <DrawLinChart data={data}></DrawLinChart>
+                        </ResponsiveContainer>
+
                     </div>
-                    {/* </ResponsiveContainer> */}
+                  
                 </div>
             </div>
             <div className="m-10 bg-base-200 p-10 rounded-md min-h-fit flex gap-10">
 
-                {/* <h1 className="text-xl text-[#e3eded] pb-6 text-center">Semister wise</h1> */}
                 <div className="w-[50%] bg-[#355b64] p-10 rounded-md">
                     <table >
                         <caption className="text-xl text-[#e3eded] pb-6 font-semibold">Semester List</caption>
@@ -139,28 +98,7 @@ const UserDashboard = () => {
                 <div className="w-[50%]">
                     <h1 className="text-xl text-[#141515] pb-6 text-center">Semester wise Payment</h1>
                     <ResponsiveContainer width="100%" height={400}>
-                        <LineChart
-                            width={500}
-                            height={300}
-                            data={data}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name"
-                            />
-                            <YAxis
-                                domain={[0, 3000]}
-                                label={{ value: 'Amount(taka)', angle: -90, position: 'insideLeft' }} />
-                            <Tooltip />
-                            <Legend />
-                            <Line type="monotone" dataKey="amount" stroke="#82ca9d" activeDot={{ r: 8 }} />
-
-                        </LineChart>
+                       <DrawLinChart data={data}></DrawLinChart>
                     </ResponsiveContainer>
 
                 </div>
