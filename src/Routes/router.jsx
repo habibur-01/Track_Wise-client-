@@ -8,6 +8,8 @@ import Dashboard from "../Layout/Dashboard/Dashboard";
 import UserDashboard from "../Pages/Dashboard/UserDashboard";
 import Profile from "../Pages/Dashboard/Profile/Profile";
 import UpdateProfile from "../Pages/Dashboard/UpdateProfile/UpdateProfile";
+import TransportClearance from "../Pages/Dashboard/TransportClearance/TransportClearance";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
       {
         path: "updateProfile",
         element: <UpdateProfile></UpdateProfile>
+      },
+      {
+        path: "transportClearance",
+        element: <TransportClearance></TransportClearance>
+      },
+      {
+        path: "paymentHistory",
+        element: <PaymentHistory></PaymentHistory>
       },
     ]
   }

@@ -70,15 +70,7 @@ const Dashboard = () => {
           </span>
         </NavLink>
       </li>
-      {/* <li>
-        <NavLink to={"/track"}>Track</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/register"}>Registration</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/schedule"}>Schedule</NavLink>
-      </li> */}
+     
       <li>
         <span
           className="flex items-center gap-2 hover:cursor-pointer"

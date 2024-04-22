@@ -1,9 +1,10 @@
+import { ResponsiveContainer } from "recharts";
 import Card from "../../Components/Card/Card";
 import DashboardTitle from "../../Components/DashboardTitle/DashboardTitle";
 import BarCharts from "../../Components/UserStatistic/BarCharts";
 import DrawLinChart from "../../Components/UserStatistic/DrawLinChart";
 import "./styles.css"
-import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Line, LineChart, } from 'recharts';
+
 const colors = ['#0088FE', '#00C49F', '#a259ff', '#47ff8b', '#43f9d8'];
 const data = [
     {
