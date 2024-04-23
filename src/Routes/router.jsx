@@ -10,6 +10,8 @@ import Profile from "../Pages/Dashboard/Profile/Profile";
 import UpdateProfile from "../Pages/Dashboard/UpdateProfile/UpdateProfile";
 import TransportClearance from "../Pages/Dashboard/TransportClearance/TransportClearance";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
+import PaymentSuccess from "../Pages/PaymentMessage/PaymentSuccess";
+import PaymentFail from "../Pages/PaymentMessage/PaymentFail";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
         element: <Registration></Registration>
       },
     ]
+  },
+  {
+    path: "/payment/success/:transId",
+    element: <PaymentSuccess></PaymentSuccess>
+  },
+  {
+    path: "/payment/fail/:transId",
+    element: <PaymentFail></PaymentFail>
   },
   {
     path: "/dashboard",

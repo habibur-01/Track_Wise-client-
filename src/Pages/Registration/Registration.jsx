@@ -42,10 +42,11 @@ const Registration = () => {
         const route = selectedRoute.name
         const transportFee = form.charge.value
         const userRegInfo = { name, email, studentId, department, program, phone, route, transportFee }
-        console.log(userRegInfo)
+        // console.log(userRegInfo)
         
         axiosSecure.post("/registerUser", userRegInfo)
             .then(response => {
+                window.location.replace(response.data.url)
                 console.log(response)
             }).catch(err => {
                 console.log(err)
