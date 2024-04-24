@@ -12,6 +12,7 @@ import TransportClearance from "../Pages/Dashboard/TransportClearance/TransportC
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import PaymentSuccess from "../Pages/PaymentMessage/PaymentSuccess";
 import PaymentFail from "../Pages/PaymentMessage/PaymentFail";
+import TrackTransport from "../Pages/TrackTransport/TrackTransport";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Registration></Registration>
+      },
+      {
+        path: "/track",
+        element: <TrackTransport></TrackTransport>
       },
     ]
   },
