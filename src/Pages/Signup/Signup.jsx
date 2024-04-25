@@ -16,6 +16,7 @@ const Registration = () => {
     const { createUser } = useAuth()
     const navigate = useNavigate()
     const axiosSecure = useAxiosSecure()
+    const today = new Date();
 
     const handleSignUp = (e) => {
         e.preventDefault()
@@ -24,7 +25,7 @@ const Registration = () => {
         const email = form.email.value
         const role = selected.name
         const password = form.password.value
-        const userInfo = { name, email, role, password }
+        const userInfo = { name, email, role, password, date:today }
         createUser(email, password)
             .then(result => {
                 console.log(result.user)

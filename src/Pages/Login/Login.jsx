@@ -10,6 +10,10 @@ const Login = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const axiosSecure = useAxiosSecure()
+
+    const from = location?.state?.from?.pathname || "/main/allusers" || "/main/addTask"
+    const today = new Date();
+
     console.log(location)
     const handleLogIn = (e) => {
         e.preventDefault()
@@ -19,7 +23,7 @@ const Login = () => {
         logInUser(email, password)
             .then(result => {
                 console.log(result.user)
-                navigate('/')
+                navigate(from, { replace: true })
             }).catch(err => {
                 // console.log(err.message)
                 if (err.code == 'auth/invalid-credential') {
@@ -32,7 +36,7 @@ const Login = () => {
         createUserWithGoogle()
             .then(result => {
                 console.log(result.user)
-                const userInfo = {name:result?.user.displayName, email:result.user.email, image:result.user.photoURL}
+                const userInfo = {name:result?.user.displayName, email:result.user.email, image:result.user.photoURL, date: today}
                 axiosSecure.post('/users', userInfo)
                     .then(response => {
                         console.log(response)

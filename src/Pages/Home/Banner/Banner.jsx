@@ -1,4 +1,4 @@
-// import banner1 from "../../../assets/file (7).png"
+// import banner1 from "../../../assets/f"
 import banner2 from "../../../assets/unsplash.jpg";
 // import banner4 from "../../../assets/file (5).png"
 import { Swiper, SwiperSlide } from "swiper/react";
