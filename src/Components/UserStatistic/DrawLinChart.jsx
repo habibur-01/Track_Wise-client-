@@ -20,7 +20,7 @@ const DrawLinChart = ({ data }) => {
                     <XAxis dataKey="name"
                     />
                     <YAxis
-                        domain={[0, 3000]}
+                        domain={[0, 4000]}
                         label={{ value: 'Amount(taka)', angle: -90, position: 'insideLeft' }} />
                     <Tooltip />
                     <Legend />

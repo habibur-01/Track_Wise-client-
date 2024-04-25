@@ -10,13 +10,14 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient()
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-
+    <Toaster />
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />

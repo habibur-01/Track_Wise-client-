@@ -4,6 +4,8 @@ import { FaAngleDown, FaCheck } from 'react-icons/fa';
 import logo from "../../assets/logos/TrackWise.png"
 import "./styles.css"
 import useAxiosSecure from '../../api/AxiosSecure/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+import useAuth from '../../hooks/useAuth';
 
 const people = [
     { name: 'CSE' },
@@ -25,25 +27,55 @@ const people1 = [
     // { name: 'LLB' },
     // { name: 'BBA' },
 ]
+const semester = [
+    { name: 'Spring-2024' },
+    { name: 'Summer-2024' },
+    { name: 'Spring-2025' },
+    { name: 'Summer-2025' },
+    { name: 'Spring-2026' },
+    { name: 'Summer-2026' },
+    // { name: 'LLB' },
+    // { name: 'BBA' },
+]
 
 const Registration = () => {
     const [selected, setSelected] = useState(people[0])
     const [selectedRoute, setSelectedRoute] = useState(people1[0])
+    const [selectedSemester, setSelectedSemester] = useState(semester[0])
+    const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
+
+    const { data: userInfo, isPending } = useQuery({
+        queryKey: ['userData'],
+        queryFn: async () => {
+
+            const res = await axiosSecure.get(`/users?email=${user?.email}`);
+            return res.data;
+
+        },
+    });
+    if (isPending) {
+        return (<div className="w-full h-screen flex justify-center items-center">
+            <span className="loading loading-ring loading-lg"></span>
+        </div>
+        )
+    }
+
     const handleTransportReg = (e) => {
         e.preventDefault()
         const form = e.target
-        const name = form.name.value
-        const email = form.email.value
+        const name = user.displayName
+        const email = user.email
         const studentId = form.studentid.value
         const department = selected.name
         const program = form.program.value
+        const semester = selectedSemester.name
         const phone = form.phone.value
         const route = selectedRoute.name
         const transportFee = form.charge.value
-        const userRegInfo = { name, email, studentId, department, program, phone, route, transportFee }
-        // console.log(userRegInfo)
-        
+        const userRegInfo = { name, email, studentId, department, program, semester, phone, route, transportFee }
+        console.log(userRegInfo)
+
         axiosSecure.post("/registerUser", userRegInfo)
             .then(response => {
                 window.location.replace(response.data.url)
@@ -78,13 +110,13 @@ const Registration = () => {
                                 <div className="space-y-3 w-[50%]">
                                     <label>Name</label>
                                     <div>
-                                        <input type="text" name="name" placeholder="type name"></input>
+                                        <input type="text" name="name" value={userInfo[0]?.name} placeholder="type name"></input>
                                     </div>
                                 </div>
                                 <div className="space-y-3 w-[50%]">
                                     <label>Email</label>
                                     <div>
-                                        <input type="email" name="email" placeholder="type email"></input>
+                                        <input type="email" name="email" value={userInfo[0]?.email} placeholder="type email"></input>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +125,7 @@ const Registration = () => {
                                 <div className="space-y-3 w-[50%]">
                                     <label>Student ID</label>
                                     <div className=''>
-                                        <input type="text" name="studentid" placeholder="type student ID"></input>
+                                        <input type="text" name="studentid" defaultValue={`${userInfo[0].studentId || ''}`} placeholder="type student ID"></input>
                                     </div>
                                 </div>
                                 <div className="space-y-3 w-[50%]">
@@ -153,13 +185,70 @@ const Registration = () => {
                                 </div>
                             </div>
 
+                            <div className='flex gap-6'>
+                                <div className="space-y-3 w-[50%]">
+                                    <label>Program</label>
+                                    <div>
+                                        <input type="text" name="program" placeholder="type program"></input>
+                                    </div>
 
-                            <div className="space-y-3">
-                                <label>Program</label>
-                                <div>
-                                    <input type="text" name="program" placeholder="type program"></input>
+                                </div>
+                                <div className="space-y-3 w-[50%]">
+                                    <label>Route Name</label>
+                                    <div className="">
+                                        <Listbox value={selectedSemester} onChange={setSelectedSemester}>
+                                            <div className="relative mt-1">
+                                                <Listbox.Button className="relative headlessInputfield w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                                                    <span className="block truncate">{selectedSemester.name}</span>
+                                                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                                        <FaAngleDown
+                                                            className="h-5 w-5 text-gray-400"
+                                                            aria-hidden="true"
+                                                        />
+                                                    </span>
+                                                </Listbox.Button>
+                                                <Transition
+                                                    as={Fragment}
+                                                    leave="transition ease-in duration-100"
+                                                    leaveFrom="opacity-100"
+                                                    leaveTo="opacity-0"
+                                                >
+                                                    <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                                                        {semester.map((person, personIdx) => (
+                                                            <Listbox.Option
+                                                                key={personIdx}
+                                                                className={({ active }) =>
+                                                                    `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                                                                    }`
+                                                                }
+                                                                value={person}
+                                                            >
+                                                                {({ selected }) => (
+                                                                    <>
+                                                                        <span
+                                                                            className={`block truncate ${selected ? 'font-medium' : 'font-normal'
+                                                                                }`}
+                                                                        >
+                                                                            {person.name}
+                                                                        </span>
+                                                                        {selected ? (
+                                                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                                                                <FaCheck className="h-5 w-5" aria-hidden="true" />
+                                                                            </span>
+                                                                        ) : null}
+                                                                    </>
+                                                                )}
+                                                            </Listbox.Option>
+                                                        ))}
+                                                    </Listbox.Options>
+                                                </Transition>
+                                            </div>
+                                        </Listbox>
+                                    </div>
+
                                 </div>
                             </div>
+
                             <div className='flex gap-6'>
                                 <div className="space-y-3 w-[50%]">
                                     <label>Phone Number</label>

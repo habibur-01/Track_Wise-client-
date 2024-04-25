@@ -2,4 +2,5 @@
     height: 600px;
     width: 60%;
     margin: auto;
+    z-index: 0;
 }

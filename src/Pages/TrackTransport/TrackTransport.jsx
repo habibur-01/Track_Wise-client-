@@ -93,7 +93,7 @@ const TrackTransport = () => {
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                             >
-                                <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                                <Listbox.Options className="absolute mt-1 max-h-60 w-full z-10 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
                                     {people.map((person, personIdx) => (
                                         <Listbox.Option
                                             key={personIdx}
@@ -126,18 +126,20 @@ const TrackTransport = () => {
                     </Listbox>
                     <div className="flex justify-center mt-4"><button className="btn bg-[#488789]  text-white">Search Location</button></div>
                 </div>
-                <MapContainer center={[23.822350, 90.365417]} zoom={12}>
-                    <TileLayer attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                    <MarkerClusterGroup>
-                        {userLocation && <Marker position={userLocation} icon={customIcon}>
-                            <Popup>
-                                {`latitude:` + userLocation[0] + ',' + "longitude:" + userLocation[1]}
-                            </Popup>
-                        </Marker>}
-                       
-                    </MarkerClusterGroup>
+                <div className="">
+                    <MapContainer center={[23.822350, 90.365417]} zoom={12}>
+                        <TileLayer attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                        <MarkerClusterGroup>
+                            {userLocation && <Marker position={userLocation} icon={customIcon}>
+                                <Popup>
+                                    {`latitude:` + userLocation[0] + ',' + "longitude:" + userLocation[1]}
+                                </Popup>
+                            </Marker>}
 
-                </MapContainer>
+                        </MarkerClusterGroup>
+
+                    </MapContainer>
+                </div>
 
             </div>
 

@@ -1,34 +1,61 @@
 import { ResponsiveContainer } from "recharts";
 import DashboardTitle from "../../../Components/DashboardTitle/DashboardTitle";
 import DrawLinChart from "../../../Components/UserStatistic/DrawLinChart";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../api/AxiosSecure/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
 
 
 const PaymentHistory = () => {
+    const [transportFee, setTransportFee] = useState('')
+    const { user } = useAuth()
+    const axiosSecure = useAxiosSecure()
+    const { data: paymentData = [] } = useQuery({
+        queryKey: ['payment'],
+        queryFn: async () => {
+            const res = await axiosSecure(`/registerUser/paid/${user.email}`)
+            return res.data;
+        }
+    })
+    const fee = parseInt(paymentData[0]?.regUserInfo?.transportFee)
+
+    // setTransportFee(tFee)
+    useEffect(() => {
+        if (paymentData.length > 0 && fee != 0) {
+            const transFee = fee - 1200
+            setTransportFee(transFee)
+        } else {
+            const transFee = 4000 - 1200
+            setTransportFee(transFee)
+        }
+    }, [fee, paymentData.length])
+     
     const data = [
         {
-            name: 'Transport Fee',
+            name: "Transport Fee",
 
-            amount: 2400,
+            amount: transportFee ,
         },
         {
             name: 'Maintanance Fee',
 
-            amount: 2210,
+            amount: 500,
         },
         {
             name: 'Transport Card Fee',
 
-            amount: 2290,
+            amount: 200,
         },
         {
             name: 'Application Fee',
 
-            amount: 2000,
+            amount: 300,
         },
         {
             name: 'Others Fee',
 
-            amount: 2181,
+            amount: 200,
         },
 
     ];
@@ -49,11 +76,14 @@ const PaymentHistory = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Spring-2024</td>
-                                <td>24/01/2024</td>
-                                <td>31/06/2024</td>
-                            </tr>
+                            {
+                                paymentData?.length > 0 ? paymentData?.map(data =><tr key={data._id}>
+                                <td>{data?.regUserInfo?.semester}</td>
+                                <td>{data?.paymentDate}</td>
+                                <td>{data?.regUserInfo?.transportFee || ''}</td>
+                            </tr>):<></>
+
+                            }
                         </tbody>
                     </table>
                 </div>

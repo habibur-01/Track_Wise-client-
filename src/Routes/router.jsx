@@ -13,6 +13,7 @@ import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import PaymentSuccess from "../Pages/PaymentMessage/PaymentSuccess";
 import PaymentFail from "../Pages/PaymentMessage/PaymentFail";
 import TrackTransport from "../Pages/TrackTransport/TrackTransport";
+import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -33,11 +34,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
-        element: <Registration></Registration>
+        element: <PrivateRoute><Registration></Registration></PrivateRoute>
       },
       {
         path: "/track",
-        element: <TrackTransport></TrackTransport>
+        element:<PrivateRoute> <TrackTransport></TrackTransport></PrivateRoute>
       },
     ]
   },
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
       {
         path: "/dashboard",
@@ -59,11 +60,11 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <Profile></Profile>
+        element:<PrivateRoute> <Profile></Profile></PrivateRoute>
       },
       {
         path: "updateProfile",
-        element: <UpdateProfile></UpdateProfile>
+        element: <PrivateRoute><UpdateProfile></UpdateProfile></PrivateRoute>
       },
       {
         path: "transportClearance",

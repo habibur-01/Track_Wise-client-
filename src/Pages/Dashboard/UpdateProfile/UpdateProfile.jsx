@@ -2,6 +2,10 @@ import { FaAngleDown, FaCheck } from "react-icons/fa";
 import DashboardTitle from "../../../Components/DashboardTitle/DashboardTitle";
 import { Listbox, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../api/AxiosSecure/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 const people = [
     { name: 'Male' },
     { name: 'Female' },
@@ -9,42 +13,119 @@ const people = [
 ]
 
 const UpdateProfile = () => {
+    const { user } = useAuth()
+    const axiosSecure = useAxiosSecure()
     const [selected, setSelected] = useState(people[0])
+    const { data: userPInfo, isPending } = useQuery({
+        queryKey: ['userPData'],
+        queryFn: async () => {
+
+            const res = await axiosSecure.get(`/users?email=${user?.email}`);
+            return res.data;
+
+        },
+    });
+    if (isPending) {
+        return (<div className="w-full h-screen flex justify-center items-center">
+            <span className="loading loading-ring loading-lg"></span>
+        </div>
+        )
+    }
+    // const [selected, setSelected] = useState(userPInfo[0]?.gender)
+console.log(selected.name)
+   
+    console.log(user.displayName)
+    console.log(userPInfo)
+
+    const handleUdtatePersonalData = (e) => {
+        e.preventDefault()
+        const form = e.target
+        const name = form.name.value
+        const email = form.email.value
+        const studentId = form.sid.value
+        const dob = form.dob.value
+        const pob = form.pob.value
+        const gender = selected.name
+        const maritualStatus = form.maritual.value
+        const religion = form.religion.value
+        const nationality = form.nationality.value
+        const nationalId = form.nid.value
+        const personalInfo = { name, email, studentId, dob, pob, gender, maritualStatus, religion, nationality, nationalId }
+        console.log(personalInfo)
+
+        axiosSecure.patch(`/users/${userPInfo[0]._id}`, personalInfo)
+            .then(response => {
+                console.log(response.data)
+                if (response.data.modifiedCount > 0) {
+                    toast('Update Successfully')
+                }
+            }).catch(err => {
+                console.log(err)
+                toast(err.message)
+            })
+    }
+    const handleUpdateAddress = (e) => {
+        e.preventDefault()
+        const form = e.target
+        const address = form.address.value
+        const policeStation = form.police.value
+        const division = form.division.value
+        const country = form.country.value
+        const postOffice = form.postOffice.value
+        const district = form.district.value
+        const zipCode = form.zipcode.value
+       
+        const addressInfo = { address, policeStation, division,district, postOffice, country, zipCode }
+        console.log(addressInfo)
+
+        axiosSecure.patch(`/users/updateAddress/${userPInfo[0]._id}`, addressInfo)
+            .then(response => {
+                console.log(response.data)
+                if (response.data.modifiedCount > 0) {
+                    toast('Update Successfully')
+                }
+            }).catch(err => {
+                console.log(err)
+                toast(err.message)
+            })
+    }
+
+
     return (
         <div>
             <DashboardTitle title={'Update Your Profile'}></DashboardTitle>
             <div className="m-10 bg-base-200">
                 <h1 className="text-black text-center text-xl border-b-2 py-2 mx-10">Personal Information</h1>
                 <div>
-                    <form className="text-black px-10 py-4 grid grid-cols-2 gap-x-10 gap-y-4">
+                    <form className="text-black px-10 py-4 grid grid-cols-2 gap-x-10 gap-y-4" onSubmit={handleUdtatePersonalData}>
                         <div className="space-y-3">
                             <label>Name</label>
                             <div>
-                                <input type="text" name="name" placeholder="type name"></input>
+                                <input type="text" name="name" defaultValue={user?.displayName} placeholder="type name"></input>
                             </div>
                         </div>
                         <div className="space-y-3">
                             <label>Email</label>
                             <div>
-                                <input type="email" name="email" placeholder="type email"></input>
+                                <input type="email" name="email" value={user.email} placeholder="type email"></input>
                             </div>
                         </div>
                         <div className="space-y-3">
                             <label>Student ID</label>
                             <div>
-                                <input type="text" name="sid" placeholder="type passwordstudent id"></input>
+                                <input type="text" name="sid" defaultValue={`${userPInfo[0]?.studentId || ''}`} placeholder="type passwordstudent id"></input>
                             </div>
                         </div>
                         <div className="space-y-3">
                             <label>Date of Birth</label>
                             <div>
-                                <input type="date" name="dob" ></input>
+                                <input type="date" name="dob" defaultValue={`${userPInfo[0]?.dob || ''}`}  ></input>
                             </div>
                         </div>
                         <div className="space-y-3">
                             <label>Place of Birth</label>
                             <div>
-                                <input type="text" name="pof" placeholder="type place of birth"></input>
+                                <input type="text" name="pob" defaultValue={`${userPInfo[0]?.pob || ''}`} placeholder="type place of birth"></input>
                             </div>
                         </div>
                         <div className="space-y-3">
@@ -105,25 +186,25 @@ const UpdateProfile = () => {
                         <div className="space-y-3">
                             <label>Maritual Status</label>
                             <div>
-                                <input type="text" name="maritual" placeholder="type maritual status"></input>
+                                <input type="text" name="maritual" defaultValue={`${userPInfo[0]?.maritualStatus || ''}`} placeholder="type maritual status"></input>
                             </div>
                         </div>
                         <div className="space-y-3">
                             <label>Religion</label>
                             <div>
-                                <input type="text" name="religion" placeholder="type religion"></input>
+                                <input type="text" name="religion" defaultValue={`${userPInfo[0]?.religion || ''}`} placeholder="type religion"></input>
                             </div>
                         </div>
                         <div className="space-y-3">
                             <label>Nationality</label>
                             <div>
-                                <input type="text" name="nationality" placeholder="type nationality"></input>
+                                <input type="text" name="nationality" defaultValue={`${userPInfo[0]?.nationality || ''}`} placeholder="type nationality"></input>
                             </div>
                         </div>
                         <div className="space-y-3">
                             <label>National ID</label>
                             <div>
-                                <input type="text" name="nid" placeholder="type national id"></input>
+                                <input type="text" name="nid" defaultValue={`${userPInfo[0]?.pob || ''}`} placeholder="type national id"></input>
                             </div>
                         </div>
                         <div className="">
@@ -139,48 +220,48 @@ const UpdateProfile = () => {
             <div className="bg-base-200 m-10 ">
                 <h1 className="text-black text-center text-xl border-b-2 py-2 mt-4 mx-10">Present Address</h1>
                 <div>
-                    <form className="text-black px-10 py-4">
+                    <form className="text-black px-10 py-4" onSubmit={handleUpdateAddress}>
                         <div className=" grid grid-cols-2 gap-x-10 gap-y-4">
                             <div className="space-y-3">
                                 <label>Address</label>
                                 <div>
-                                    <input type="text" name="address" placeholder="type address"></input>
+                                    <input type="text" name="address" defaultValue={`${userPInfo[0]?.address || ''}`} placeholder="type address"></input>
                                 </div>
                             </div>
                             <div className="space-y-3">
                                 <label>Post Office</label>
                                 <div>
-                                    <input type="text" name="PostOffice" placeholder="type post office"></input>
+                                    <input type="text" name="postOffice" defaultValue={`${userPInfo[0]?.postOffice || ''}`} placeholder="type post office"></input>
                                 </div>
                             </div>
                             <div className="space-y-3">
                                 <label>Police Station</label>
                                 <div>
-                                    <input type="text" name="police" placeholder="type ploice station"></input>
+                                    <input type="text" name="police" defaultValue={`${userPInfo[0]?.policeStation || ''}`} placeholder="type ploice station"></input>
                                 </div>
                             </div>
                             <div className="space-y-3">
                                 <label>District/City</label>
                                 <div>
-                                    <input type="text" name="district" placeholder="type district"></input>
+                                    <input type="text" name="district" defaultValue={`${userPInfo[0]?.district || ''}`} placeholder="type district"></input>
                                 </div>
                             </div>
                             <div className="space-y-3">
                                 <label>Division/State</label>
                                 <div>
-                                    <input type="text" name="division" placeholder="type division"></input>
+                                    <input type="text" name="division" defaultValue={`${userPInfo[0]?.division || ''}`} placeholder="type division"></input>
                                 </div>
                             </div>
                             <div className="space-y-3">
                                 <label>Zip Code</label>
                                 <div>
-                                    <input type="text" name="zipcode" placeholder="type zip code"></input>
+                                    <input type="text" name="zipcode" defaultValue={`${userPInfo[0]?.zipCode || ''}`} placeholder="type zip code"></input>
                                 </div>
                             </div>
                             <div className="space-y-3">
                                 <label>Country</label>
                                 <div>
-                                    <input type="text" name="country" placeholder="type country"></input>
+                                    <input type="text" name="country" defaultValue={`${userPInfo[0]?.country || ''}`} placeholder="type country"></input>
                                 </div>
                             </div>
                         </div>

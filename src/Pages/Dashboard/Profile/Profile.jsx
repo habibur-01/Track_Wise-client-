@@ -30,7 +30,7 @@ const Profile = () => {
                 <div className="w-96 min-h-fit">
                     {
                         user ?
-                            <>{user.photoURl ? <img src={user.photoURl} className="w-full h-[400px] overflow-x-hidden"></img> : <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="w-full h-[400px] overflow-x-hidden"></img>}</> :
+                            <>{user.photoURl || userInfo[0]?.image ? <img src={user.photoURl || userInfo[0]?.image} className="w-full h-[400px -16px] p-4 border-2 overflow-x-hidden"></img> : <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="w-full h-[400px] overflow-x-hidden"></img>}</> :
                             <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="w-full h-[400px] overflow-x-hidden"></img>
                     }
                     <div className="my-4">
@@ -46,7 +46,7 @@ const Profile = () => {
                                 <p>Name</p>
                             </div>
                             <div>
-                                <p></p>
+                                <p>{user.displayName}</p>
                             </div>
                         </div>
 
@@ -55,7 +55,7 @@ const Profile = () => {
                                 <p>Email</p>
                             </div>
                             <div>
-                                <p></p>
+                                <p>{user.email}</p>
                             </div>
                         </div>
                         <div className="flex justify-between">
@@ -63,7 +63,7 @@ const Profile = () => {
                                 <p>Student ID</p>
                             </div>
                             <div>
-                                <p>201-15-3647</p>
+                                <p>{`${userInfo[0]?.studentId || ""}`}</p>
                             </div>
                         </div>
                         <div className="flex justify-between">
@@ -71,7 +71,7 @@ const Profile = () => {
                                 <p>Date Of Birth</p>
                             </div>
                             <div>
-                                <p>Habibure Rahman Zihad</p>
+                                <p>{`${userInfo[0]?.dob || ''}`}</p>
                             </div>
                         </div>
                         <div className="flex justify-between ">
@@ -79,7 +79,7 @@ const Profile = () => {
                                 <p>Place of Birth</p>
                             </div>
                             <div>
-                                <p>Habibure Rahman Zihad</p>
+                                <p>{`${userInfo[0]?.pob || ''}`}</p>
                             </div>
                         </div>
                         <div className="flex justify-between">
@@ -87,7 +87,7 @@ const Profile = () => {
                                 <p>Gender</p>
                             </div>
                             <div>
-                                <p>Habibure Rahman Zihad</p>
+                                <p>{`${userInfo[0]?.gender || ''}`}</p>
                             </div>
                         </div>
                         <div className="flex justify-between ">
@@ -95,7 +95,7 @@ const Profile = () => {
                                 <p>Maritual Status</p>
                             </div>
                             <div>
-                                <p>Habibure Rahman Zihad</p>
+                                <p>{`${userInfo[0]?.maritualStatus || ''}`}</p>
                             </div>
                         </div>
                         <div className="flex justify-between ">
@@ -103,7 +103,7 @@ const Profile = () => {
                                 <p>Religion</p>
                             </div>
                             <div>
-                                <p>Habibure Rahman Zihad</p>
+                                <p>{`${userInfo[0]?.religion || ''}`}</p>
                             </div>
                         </div>
                         <div className="flex justify-between">
@@ -111,7 +111,7 @@ const Profile = () => {
                                 <p>Nationality</p>
                             </div>
                             <div>
-                                <p>Habibure Rahman Zihad</p>
+                                <p>{`${userInfo[0]?.nationality || ''}`}</p>
                             </div>
                         </div>
                         <div className="flex justify-between ">
@@ -119,7 +119,7 @@ const Profile = () => {
                                 <p>National ID</p>
                             </div>
                             <div>
-                                <p>Habibure Rahman Zihad</p>
+                                <p>{`${userInfo[0]?.nationalId || ''}`}</p>
                             </div>
                         </div>
                     </div>
@@ -131,7 +131,7 @@ const Profile = () => {
                                     <p>Address</p>
                                 </div>
                                 <div>
-                                    <p>Mirpur-1</p>
+                                    <p>{`${userInfo[0]?.address || ''}`}</p>
                                 </div>
                             </div>
 
@@ -140,7 +140,7 @@ const Profile = () => {
                                     <p>Post Office</p>
                                 </div>
                                 <div>
-                                    <p>Mirpur</p>
+                                    <p>{`${userInfo[0]?.postOffice || ''}`}</p>
                                 </div>
                             </div>
                             <div className="flex justify-between">
@@ -148,7 +148,7 @@ const Profile = () => {
                                     <p>Police Station</p>
                                 </div>
                                 <div>
-                                    <p>Mirpur Model Thana</p>
+                                    <p>{`${userInfo[0]?.policeStation || ''}`}</p>
                                 </div>
                             </div>
                             <div className="flex justify-between">
@@ -156,7 +156,7 @@ const Profile = () => {
                                     <p>District/City</p>
                                 </div>
                                 <div>
-                                    <p>Dhaka</p>
+                                    <p>{`${userInfo[0]?.district || ''}`}</p>
                                 </div>
                             </div>
                             <div className="flex justify-between ">
@@ -164,7 +164,7 @@ const Profile = () => {
                                     <p>Division/State</p>
                                 </div>
                                 <div>
-                                    <p>Dhaka</p>
+                                    <p>{`${userInfo[0]?.division || ''}`}</p>
                                 </div>
                             </div>
                             <div className="flex justify-between">
@@ -172,7 +172,7 @@ const Profile = () => {
                                     <p>Zip Code</p>
                                 </div>
                                 <div>
-                                    <p>1205</p>
+                                    <p>{`${userInfo[0]?.zipCode || ''}`}</p>
                                 </div>
                             </div>
                             <div className="flex justify-between">

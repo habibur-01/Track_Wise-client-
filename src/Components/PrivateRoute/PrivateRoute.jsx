@@ -4,7 +4,7 @@ import {PropTypes} from "prop-types"
 const PrivateRoute = ({children}) => {
     const {user, loading} =useAuth()
 
-
+// console.log(user)
     if (loading){
         return (<div className="w-full h-screen flex justify-center items-center">
             <span className="loading loading-ball loading-lg"></span>
@@ -15,10 +15,10 @@ const PrivateRoute = ({children}) => {
         return children
     }
     return (
-        <Navigate to="/login" state={{ from: location }} replace></Navigate>
+        <Navigate to="/login" ></Navigate>
     );
 };
 PrivateRoute.propTypes = {
-    children: PropTypes.any
+    children: PropTypes.node
 }
 export default PrivateRoute;

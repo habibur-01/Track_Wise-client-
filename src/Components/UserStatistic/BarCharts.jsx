@@ -20,7 +20,7 @@ const BarCharts = ({ data, colors }) => {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name"
                         label={{ value: 'Fee Name', position: 'bottom' }} />
-                    <YAxis domain={[0, 3000]}
+                    <YAxis domain={[0, 4000]}
                         label={{ value: 'Amount(taka)', angle: -90, position: 'insideLeft' }} />
                     <Tooltip />
                     <Legend />
