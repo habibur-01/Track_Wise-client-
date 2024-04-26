@@ -16,7 +16,7 @@ const UpdateProfile = () => {
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
     const [selected, setSelected] = useState(people[0])
-    const { data: userPInfo, isPending } = useQuery({
+    const { data: userPInfo, isPending, refetch } = useQuery({
         queryKey: ['userPData'],
         queryFn: async () => {
 
@@ -57,6 +57,7 @@ console.log(selected.name)
             .then(response => {
                 console.log(response.data)
                 if (response.data.modifiedCount > 0) {
+                    refetch()
                     toast('Update Successfully')
                 }
             }).catch(err => {
@@ -82,6 +83,7 @@ console.log(selected.name)
             .then(response => {
                 console.log(response.data)
                 if (response.data.modifiedCount > 0) {
+                    refetch()
                     toast('Update Successfully')
                 }
             }).catch(err => {

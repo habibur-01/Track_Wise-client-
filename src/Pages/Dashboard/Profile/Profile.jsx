@@ -30,7 +30,7 @@ const Profile = () => {
                 <div className="w-96 min-h-fit">
                     {
                         user ?
-                            <>{user.photoURl || userInfo[0]?.image ? <img src={user.photoURl || userInfo[0]?.image} className="w-full h-[400px -16px] p-4 border-2 overflow-x-hidden"></img> : <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="w-full h-[400px] overflow-x-hidden"></img>}</> :
+                            <> <img src={userInfo[0]?.image} className="w-full h-[400px -16px] p-4 border-2 overflow-x-hidden"></img> </> :
                             <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="w-full h-[400px] overflow-x-hidden"></img>
                     }
                     <div className="my-4">

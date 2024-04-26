@@ -1,11 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 import auth from '../Firebase/Firebase.config';
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
-import {PropTypes} from "prop-types"
+import { PropTypes } from "prop-types"
 // import useAxiosPublic from "../api/AxiosPublic/useAxiosPublic";
 
 export const AuthContext = createContext(null)
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
     const [user, setuser] = useState(null)
     const [loading, setLoading] = useState(true)
     // const axiosPublic = useAxiosPublic()
@@ -13,8 +13,8 @@ const AuthProvider = ({children}) => {
     const provider = new GoogleAuthProvider();
 
     const createUser = (email, password) => {
-     setLoading(true)
-     return createUserWithEmailAndPassword(auth, email, password) 
+        setLoading(true)
+        return createUserWithEmailAndPassword(auth, email, password)
 
     }
 
@@ -23,8 +23,8 @@ const AuthProvider = ({children}) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
 
-    useEffect(()=>{
-        const unSubscribe = onAuthStateChanged(auth,(currentUser)=>{
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             setuser(currentUser)
             // if(currentUser){
             //     const userInfo = {email: currentUser.email}
@@ -35,19 +35,19 @@ const AuthProvider = ({children}) => {
             //             setLoading(false)
             //         }
             //     })
-                
+
             // }
             // else{
             //     localStorage.removeItem('access-token')
             //     setLoading(false)
             // }
             setLoading(false)
-            
+
         })
-        return(()=>{
+        return (() => {
             unSubscribe()
         })
-    },[])
+    }, [])
 
     const createUserWithGoogle = () => {
         setLoading(true)
@@ -67,15 +67,15 @@ const AuthProvider = ({children}) => {
         createUserWithGoogle,
         loading
     }
-    
+
     return (
-        
+
         <AuthContext.Provider value={authInfo}>
             {children}
         </AuthContext.Provider>
     );
 };
-AuthProvider.propTypes={
+AuthProvider.propTypes = {
     children: PropTypes.node
 }
 

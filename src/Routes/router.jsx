@@ -14,6 +14,8 @@ import PaymentSuccess from "../Pages/PaymentMessage/PaymentSuccess";
 import PaymentFail from "../Pages/PaymentMessage/PaymentFail";
 import TrackTransport from "../Pages/TrackTransport/TrackTransport";
 import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
+import Schedule from "../Pages/Schedule/Schedule";
+import ContactUs from "../Pages/ContactUs/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
         path: "/track",
         element:<PrivateRoute> <TrackTransport></TrackTransport></PrivateRoute>
       },
+      {
+        path: "/schedule",
+        element: <Schedule></Schedule>
+      },
+      {
+        path: "/contact",
+        element: <ContactUs></ContactUs>
+      }
     ]
   },
   {

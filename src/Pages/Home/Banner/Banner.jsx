@@ -1,5 +1,5 @@
-// import banner1 from "../../../assets/f"
-import banner2 from "../../../assets/unsplash.jpg";
+import banner2 from "../../../assets/unsplash.jpg"
+// import banner from "../../../assets/logos/navigation-animate.svg";
 // import banner4 from "../../../assets/file (5).png"
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -23,7 +23,7 @@ const Banner = () => {
           className="mySwiper"
         >
           <SwiperSlide>
-            <div className="flex justify-center w-full h-[800px] items-center ">
+            <div className="flex justify-center w-full h-[800px] items-center bg-gradient-to-tr from-[#edf2fb] to-[#d7e3fc]">
               <div className="text-[#e4eeee] w-[50%] h-full flex justify-center items-center ">
                 <div className="space-y-6 w-[80%] lg:pl-10">
                   <p className="text-xl bg-gradient-to-r from-[#6648ff] via-[#7fefda] to-[#45f9d7] inline-block text-transparent bg-clip-text">
@@ -43,7 +43,7 @@ const Banner = () => {
               </div>
               <div className="w-[50%]">
                 {/* <img src={banner1} className="w-[85%] rotate-45" alt="" /> */}
-                {/* <img src={banner1} className="w-[85%] " alt="" /> */}
+                {/* <img src={banner} className="w-[85%] " alt="" /> */}
               </div>
             </div>
           </SwiperSlide>

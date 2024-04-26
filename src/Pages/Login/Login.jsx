@@ -11,7 +11,7 @@ const Login = () => {
     const location = useLocation()
     const axiosSecure = useAxiosSecure()
 
-    const from = location?.state?.from?.pathname || "/main/allusers" || "/main/addTask"
+    // const from = location?.state?.from?.pathname || "/"
     const today = new Date();
 
     console.log(location)
@@ -23,7 +23,7 @@ const Login = () => {
         logInUser(email, password)
             .then(result => {
                 console.log(result.user)
-                navigate(from, { replace: true })
+                navigate("/")
             }).catch(err => {
                 // console.log(err.message)
                 if (err.code == 'auth/invalid-credential') {
