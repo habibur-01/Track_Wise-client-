@@ -4,7 +4,7 @@ import schedule from "../../../assets/logos/schedule.png"
 
 const Feature = () => {
     return (
-        <div className="bg-[#002147] text-white flex justify-center w-[80%] mx-auto z-20">
+        <div className="bg-[#002147] backdrop-blur-sm text-white flex justify-center w-[80%] mx-auto z-20">
             <div className="flex justify-between gap-4 py-10 px-10  border-r-[1px] w-[33%]">
                 <div className="space-y-4">
                     <h2 className="text-2xl font-medium text-left">Registration</h2>
