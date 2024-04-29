@@ -8,20 +8,23 @@ import TrackFeature from "./TrackFeature/TrackFeature";
 const Home = () => {
   return (
     <div>
-      <Banner />
-      <div className="-mt-20 z-50">
-        <Feature />
+      <div className="relative z-0">
+        <Banner />
+        <div className="absolute text-center bottom-0 z-10 left-0 right-0">
+          <Feature></Feature>
+        </div>
+      </div>
+
+      <div>
+        <RegistrationFeature />
       </div>
       <div>
-        <RegistrationFeature/>
+        <TrackFeature />
       </div>
       <div>
-        <TrackFeature/>
+        <Schedule />
       </div>
-      <div>
-        <Schedule/>
-      </div>
-      
+
     </div>
   );
 };

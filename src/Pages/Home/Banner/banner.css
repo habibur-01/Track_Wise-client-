@@ -1,17 +1,22 @@
-.bannerBg{
-    background-image: url("../../../assets/74.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    /* background-position: center; */
-    background-color: rgb(95, 94, 94);
-    background-blend-mode: overlay; 
- 
+.video-bg {
+  
+    width: 100%;
+    height: 800px;
+    object-fit: cover;
+    z-index: 0;
 }
-.bannerBg1{
-    background-image: url("../../../assets/638f8612f68be34fd0f34d117a043b44.webp");
-    background-repeat: no-repeat;
-    background-size: cover;
-    /* background-position: center; */
-    background-color: rgb(95, 94, 94);
-    background-blend-mode: overlay; 
+
+.item {
+    width: 600px;
+    color: #FFF;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    
+    z-index: 1;
 }
