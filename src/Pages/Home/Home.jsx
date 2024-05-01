@@ -1,5 +1,6 @@
 import Banner from "./Banner/Banner";
 import Feature from "./Feature/Feature";
+import Notice from "./Notice/Notice";
 import RegistrationFeature from "./RegistrationFeature/RegistrationFeature";
 import Schedule from "./Schedule/Schedule";
 import TrackFeature from "./TrackFeature/TrackFeature";
@@ -23,6 +24,9 @@ const Home = () => {
       </div>
       <div>
         <Schedule />
+      </div>
+      <div className="">
+        <Notice></Notice>
       </div>
 
     </div>
