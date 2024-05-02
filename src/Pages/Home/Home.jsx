@@ -3,6 +3,7 @@ import Feature from "./Feature/Feature";
 import Notice from "./Notice/Notice";
 import RegistrationFeature from "./RegistrationFeature/RegistrationFeature";
 import Schedule from "./Schedule/Schedule";
+import Testimonials from "./Testimonials/Testimonials";
 import TotalSummary from "./TotalSummary/TotalSummary";
 import TrackFeature from "./TrackFeature/TrackFeature";
 
@@ -31,6 +32,9 @@ const Home = () => {
       </div>
       <div>
         <TotalSummary></TotalSummary>
+      </div>
+      <div>
+        <Testimonials></Testimonials>
       </div>
 
     </div>
