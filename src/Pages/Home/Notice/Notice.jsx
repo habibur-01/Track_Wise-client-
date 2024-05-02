@@ -32,7 +32,7 @@ const Notice = () => {
                                 </div>
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-black opacity-50">Notice</p>
+                                <p className="text-sm font-medium text-black opacity-60"><span className="border-b-4 opacity-100 border-b-[#fdc800] ">N</span>otice</p>
                                 <h1 className="text-2xl font-semibold">{notice?.reason}</h1>
 
                                 <p className="text-sm opacity-75 mt-4">{notice?.description}</p>

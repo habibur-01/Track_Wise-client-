@@ -1,0 +1,9 @@
+.bgImg {
+    background-image: url('../../../assets/logos/caps(cassel).jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    /* background-color: #002147;
+    background-blend-mode: overlay; */
+    
+}

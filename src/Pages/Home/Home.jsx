@@ -3,6 +3,7 @@ import Feature from "./Feature/Feature";
 import Notice from "./Notice/Notice";
 import RegistrationFeature from "./RegistrationFeature/RegistrationFeature";
 import Schedule from "./Schedule/Schedule";
+import TotalSummary from "./TotalSummary/TotalSummary";
 import TrackFeature from "./TrackFeature/TrackFeature";
 
 
@@ -25,8 +26,11 @@ const Home = () => {
       <div>
         <Schedule />
       </div>
-      <div className="">
+      <div >
         <Notice></Notice>
+      </div>
+      <div>
+        <TotalSummary></TotalSummary>
       </div>
 
     </div>
