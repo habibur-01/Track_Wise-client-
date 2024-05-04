@@ -1,4 +1,5 @@
-import pic2 from "../../../assets/logos/map-pin-location-direction-position-graphic.jpg"
+import pic2 from "../../../assets/logos/side-view-hands-holding-smartphone.jpg"
+// import pic1 from "../../../assets/logos/side-view-hands-holding-smartphone.jpg"
 
 const TrackFeature = () => {
     return (
@@ -14,11 +15,17 @@ const TrackFeature = () => {
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat doloribus delectus dolores rerum incidunt est, vitae voluptatum in. Fugiat laborum enim ducimus harum hic quidem explicabo, velit magni vitae commodi. Explicabo iste, laudantium autem eligendi, consequuntur quas doloribus laborum at magni placeat impedit neque cumque. Exercitationem animi eveniet dignissimos temporibus.</p>
                 </div>
                 <div>
-                    <img src={pic2} className="w-[60%] h-[400px] object-cover mx-auto mt-8 mb-2" alt="" />
+                    <div className="">
+                        <img src={pic2} className="w-[60%] h-[400px] border-4 border-[#002147] object-cover mx-auto mt-8 mb-2" alt="" />
+                        {/* <div className="absolute  -left-8 -top-10">
+                            <img src={pic1} className="w-[400px] h-[300px] object-cover mx-auto mt-8 mb-2" alt="" />
+                        </div> */}
+                    </div>
+
                 </div>
             </div>
-        
-            
+
+
         </div>
     );
 };

@@ -8,6 +8,10 @@ import MarkerClusterGroup from "react-leaflet-cluster"
 import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { FaArrowDown, FaCheck } from "react-icons/fa";
+import RoutingControl from "./RoutingControl/RoutingControl";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+// import RoutingControl from "./RoutingControl/RoutingControl";
 
 
 const people = [
@@ -21,6 +25,15 @@ const people = [
 const TrackTransport = () => {
     const [userLocation, setUserLocation] = useState(null);
     const [selected, setSelected] = useState(people[0])
+    const [destination, setDestination] = useState(null);
+    const { data: location = [] } = useQuery({
+        queryKey: ['location'],
+        queryFn: async () => {
+            const result = await axios.get('/location.json')
+            return result.data;
+        }
+    })
+    // console.log(location)
     // const [markerPosition, setMarkerPosition] = useState(null);
     // const [markerAddress, setMarkerAddress] = useState(null);
     // const markers = [
@@ -45,17 +58,36 @@ const TrackTransport = () => {
 
     useEffect(() => {
         // Get user's current location using Geolocation API
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                const { latitude, longitude } = position.coords;
+        if (!navigator.geolocation) {
+            return ('Your browser does not support geolocation')
+        } else {
+            const intervalId = setInterval(() => {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const { latitude, longitude } = position.coords;
+                        setUserLocation([latitude, longitude]);
+                    },
+                    error => {
+                        console.error('Error getting user location:', error);
+                    }
+                );
+            }, 5000);
 
-                setUserLocation([latitude, longitude]);
-            },
-            error => {
-                console.error('Error getting user location:', error);
-            }
-        );
+            // Clear the interval when the component unmounts
+            return () => clearInterval(intervalId);
+        }
+
     }, []);
+
+    // console.log(destination)
+    const handleSearchLocation = () => {
+        if (selected) {
+            const endDestination = location.find(loc => loc.destination == selected.name)
+            const latitude = endDestination.lat;
+            const longitude = endDestination.long;
+            setDestination([latitude, longitude])
+        }
+    }
 
     // const handleMarkerClick = async (e) => {
     //     const { lat, lng } = e.latlng;
@@ -124,10 +156,10 @@ const TrackTransport = () => {
                             </Transition>
                         </div>
                     </Listbox>
-                    <div className="flex justify-center mt-4"><button className="btn bg-[#488789]  text-white">Search Location</button></div>
+                    <div className="flex justify-center mt-4"><button className="btn bg-[#488789]  text-white" onClick={handleSearchLocation}>Search Location</button></div>
                 </div>
                 <div className="">
-                    <MapContainer center={[23.822350, 90.365417]} zoom={12}>
+                    <MapContainer center={[23.822350, 90.365417]} zoom={12} >
                         <TileLayer attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
                         <MarkerClusterGroup>
                             {userLocation && <Marker position={userLocation} icon={customIcon}>
@@ -137,8 +169,14 @@ const TrackTransport = () => {
                             </Marker>}
 
                         </MarkerClusterGroup>
+                        {destination && userLocation && (
+                            <RoutingControl
+                                destination={destination}
+                            />
+                        )}
 
                     </MapContainer>
+
                 </div>
 
             </div>

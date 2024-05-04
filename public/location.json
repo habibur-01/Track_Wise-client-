@@ -1,0 +1,27 @@
+[
+    {
+        "destination": "Dhanmondi",
+        "lat": 23.7461,
+        "long": 90.3742
+    },
+    {
+        "destination": "Uttara",
+        "lat": 23.8756,
+        "long": 90.3905
+    },
+    {
+        "destination": "Tongi",
+        "lat": 23.8915,
+        "long": 90.4025
+    },
+    {
+        "destination": "Savar",
+        "lat": 23.8584,
+        "long": 90.2666
+    },
+    {
+        "destination": "Narayanganj",
+        "lat": 23.6236,
+        "long": 90.5029
+    }
+]

@@ -25,7 +25,10 @@ const Registration = () => {
         const email = form.email.value
         const role = selected.name
         const password = form.password.value
-        const userInfo = { name, email, role, password, date:today }
+        const studentId = form.sid.value
+        const employeeId = form.eid.value
+        const userStudentInfo = { name, email, role, password, date: today, studentId }
+        const userEmployeeInfo = { name, email, role, password, date: today, employeeId }
         createUser(email, password)
             .then(result => {
                 console.log(result.user)
@@ -33,13 +36,22 @@ const Registration = () => {
                     displayName: name,
                     // photoURL: data?.data?.display_url
                 })
-                axiosSecure.post('/users', userInfo)
+                if(role === 'Student'){
+                    axiosSecure.post('/users', userStudentInfo)
                     .then(response => {
                         console.log(response)
                     }).catch(err => {
                         console.log(err)
                     })
-                    navigate('/login')
+                }else{
+                    axiosSecure.post('/users', userEmployeeInfo)
+                    .then(response => {
+                        console.log(response)
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                }
+                navigate('/login')
             }).catch(error => {
                 console.log(error)
             })
@@ -125,6 +137,18 @@ const Registration = () => {
                                         </div>
                                     </Listbox>
                                 </div>
+                            </div>
+                        </div>
+                        <div className={`space-y-3 ${selected.name === 'Student' ? 'block' : 'hidden'}`}>
+                            <label>Student Id</label>
+                            <div>
+                                <input type="text" name="sid" placeholder="type password"></input>
+                            </div>
+                        </div>
+                        <div className={`space-y-3 ${selected.name === 'Staff' ? 'block' : 'hidden'}`}>
+                            <label>Employee Id</label>
+                            <div>
+                                <input type="text" name="eid" placeholder="type password"></input>
                             </div>
                         </div>
                         <div className="space-y-3">

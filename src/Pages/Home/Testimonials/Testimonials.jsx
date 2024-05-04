@@ -37,11 +37,11 @@ const Testimonials = () => {
                         {
                             reviews.map(review =>
                                 <SwiperSlide key={review._id}>
-                                    <div className="bg-white min-h-fit py-6 my-12">
+                                    <div className="bg-[#002147] min-h-fit py-6 my-12">
                                         <div>
-                                            <h1 className="text-xl font-semibold text-left ml-10">{review.name}</h1>
+                                            <h1 className="text-xl font-semibold text-left ml-10 text-white">{review.name}</h1>
                                         </div>
-                                        <div className="bg-base-200 m-10 p-5 flex justify-between">
+                                        <div className="bg-[#fdc800] m-10 p-5 flex justify-between rounded-lg">
                                             <p>{review.details.slice(0, 100) + '..'}</p>
                                             <img src={review.image} className="w-20 h-20 border-2 border-[#fdc800] -mt-14" alt="" />
 

@@ -16,6 +16,10 @@ import TrackTransport from "../Pages/TrackTransport/TrackTransport";
 import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
 import Schedule from "../Pages/Schedule/Schedule";
 import ContactUs from "../Pages/ContactUs/ContactUs";
+import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
+import AllStudent from "../Pages/Dashboard/AdminDashboard/AllStudent/AllStudent";
+import AllStaffs from "../Pages/Dashboard/AdminDashboard/AllStaffs/AllStaffs";
+import PaymentClearance from "../Pages/Dashboard/AdminDashboard/PaymentClearance/PaymentClearance";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +88,22 @@ const router = createBrowserRouter([
         path: "paymentHistory",
         element: <PaymentHistory></PaymentHistory>
       },
+      {
+        path: "admindashboard",
+        element: <AdminDashboard></AdminDashboard>
+      },
+      {
+        path: "students",
+        element: <AllStudent></AllStudent>
+      },
+      {
+        path: "staffs",
+        element: <AllStaffs></AllStaffs>
+      },
+      {
+        path: "payments",
+        element: <PaymentClearance></PaymentClearance>
+      }
     ]
   }
 ]);
