@@ -9,7 +9,7 @@ const AllStaffs = () => {
     const { refetch, data: students = [] } = useQuery({
         queryKey: ['students'],
         queryFn: async () => {
-            const result = await axiosSecure.get('/students')
+            const result = await axiosSecure.get('/staffs')
             return result.data;
         }
     })
@@ -27,6 +27,7 @@ const AllStaffs = () => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`/staffs/${id}`)
                     .then(result => {
+                        console.log(result.data)
                         if (result.data.deletedCount > 0) {
                             Swal.fire({
                                 title: "Deleted!",
@@ -53,7 +54,7 @@ const AllStaffs = () => {
                     {/* head */}
                     <thead>
                         <tr>
-                            <th>Student Id</th>
+                            <th>Employee Id</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Religion</th>
@@ -64,7 +65,7 @@ const AllStaffs = () => {
                     <tbody>
                         {
                             students?.map(student => <tr key={student._id}>
-                                <td>{student?.studentId}</td>
+                                <td>{student?.employeeId}</td>
                                 <td>{student?.name}</td>
                                 <td>{student?.email}</td>
                                 <td>{student?.religion}</td>

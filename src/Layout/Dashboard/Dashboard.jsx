@@ -5,7 +5,7 @@ import {
   MdOutlineDashboard,
   MdOutlineLogout,
 } from "react-icons/md";
-import { FaCreditCard, FaHome, FaUser, FaUserEdit } from "react-icons/fa";
+import { FaCreditCard, FaHome, FaUser, FaUserEdit, FaUserGraduate, FaUsers } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import "./style.css";
 const Dashboard = () => {
@@ -19,7 +19,7 @@ const Dashboard = () => {
 
   const isAdmin = true;
 
-  const navLinks = (
+  const navLinks = 
     <>
       <li className="sidebar">
         <NavLink to={"/dashboard"}>
@@ -61,7 +61,7 @@ const Dashboard = () => {
           </span>
         </NavLink>
       </li>
-    </>)
+    </>
 
   const adminnavLinks = (
     <>
@@ -77,7 +77,7 @@ const Dashboard = () => {
       <li className="sidebar">
         <NavLink to={"/dashboard/students"}>
           <span className="flex items-center gap-2">
-            <FaCreditCard size={18} />
+          <FaUserGraduate size={18} />
             Students
           </span>
         </NavLink>
@@ -85,7 +85,7 @@ const Dashboard = () => {
       <li className="sidebar">
         <NavLink to={"/dashboard/staffs"}>
           <span className="flex items-center gap-2">
-            <FaCreditCard size={18} />
+            <FaUsers size={18} />
             Staffs
           </span>
         </NavLink>
@@ -94,7 +94,7 @@ const Dashboard = () => {
         <NavLink to={"/dashboard/payments"}>
           <span className="flex items-center gap-2">
             <MdFactCheck size={20} />
-            Payments Clearance
+            Payments 
           </span>
         </NavLink>
       </li>
@@ -135,8 +135,8 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="flex text-[#e4eeee] text-base">
-        <div className="w-64 bg-[#002147]/80 min-h-screen">
-          <div className="flex flex-col items-center space-y-3 text-[#e4eeee] pt-10 pb-5 border-y-2">
+        <div className="w-72 bg-[#002147]/80 min-h-screen">
+          <div className="flex flex-col items-center space-y-3 text-[#e4eeee] pt-10 pb-5 border-y-2 px-2">
             {/* <img src="" className="h-16 border rounded-full w-16" alt="" /> */}
             {user ? <>{user?.photoURL ? <img alt="Tailwind CSS Navbar component" src={user?.photoURL} className="h-16 border rounded-full w-16" /> : <img alt="Tailwind CSS Navbar component" className="h-16 border rounded-full w-16" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />}</> :
               <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="h-16 border rounded-full w-16" />}

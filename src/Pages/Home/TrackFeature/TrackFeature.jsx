@@ -18,8 +18,8 @@ const TrackFeature = () => {
                     <div className="">
                         <img src={pic2} className="w-[60%] h-[400px] border-4 border-[#002147] object-cover mx-auto mt-8 mb-2" alt="" />
                         {/* <div className="absolute  -left-8 -top-10">
-                            <img src={pic1} className="w-[400px] h-[300px] object-cover mx-auto mt-8 mb-2" alt="" />
-                        </div> */}
+                        <img src={pic1} className="w-[400px] h-[300px] object-cover mx-auto mt-8 mb-2" alt="" />
+                    </div> */}
                     </div>
 
                 </div>

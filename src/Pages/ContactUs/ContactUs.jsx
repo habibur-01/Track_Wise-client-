@@ -11,7 +11,7 @@ const ContactUs = () => {
     return (
         <div className="">
             <div className='bgcontactbanner'>
-                <div className='bgbanner1  pl-10 flex justify-center items-center h-full '>
+                <div className='bg-[#002147]/80 h-full w-full backdrop-blur-sm md:flex md:justify-center md:items-center  '>
                     <div className="w-[60%]">
                         <ul className="list-none text-white font-bold">
                             <li className="underline uppercase"><Link to={'/'}>Home</Link></li>
